@@ -2,8 +2,10 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 import json
 from flask import Flask, request
-app = Flask(__name__)
+from flask_cors import CORS
 
+app = Flask(__name__)
+CORS(app)
 es = Elasticsearch()
 
 @app.route("/")
@@ -22,3 +24,5 @@ def search():
         result['results'].append({'name': hit["_source"]["name"], 'score': hit["_score"]})
     return json.dumps(result)
 
+if __name__ == "__main__":
+   app.run(port = 5001)

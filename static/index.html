@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Gif searcher</title>
+</head>
+ 
+<body>
+
+<form>
+    <input type="text" id="imagename" value="" />
+    <input type="button" id="btn" value="GO" />
+</form>
+
+  <script>
+ 
+document.getElementById('btn').onclick = function() {
+httpGetAsync("http://localhost:5001/search?name=" + document.getElementById('imagename').value, callGif);
+}
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function callGif(esResult)
+{
+   var names = JSON.parse(esResult).results.map(extractName);
+   clearImages();
+   names.map(displayImage);
+}
+
+function displayImage(name)
+{
+   var url = "http://localhost:5000/gifs/" + name
+   var img = document.createElement('img');
+   img.src = url;
+   document.body.appendChild(img);
+}
+
+function clearImages()
+{
+    var element = document.getElementsByTagName("img"), index;
+    for (index = element.length - 1; index >= 0; index--) {
+        element[index].parentNode.removeChild(element[index]);
+    }
+}
+
+function extractName(resultElem) {
+    return resultElem.name + ".gif"
+}
+
+  </script>
+</body>
+ 
+</html>
