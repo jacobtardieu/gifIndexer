@@ -14,7 +14,6 @@ Requirements
 How to use
 ----------
 
-* Create the Elasticsearch index with the json in `esIndex.json`
-* Use the Python script `indexer.py` to try indexing documents
-* Use the Python script or ES REST API to query documents
+* Use the Python script `indexer.py` to index documents. By default it will index all gif files in the `example_gifs` folder of this repository.
+* Use the flask app to search: `export FLASK_APP=search.py && flask run`. To search for `bla`, go to `localhost:5000/search?name=bla`
 
