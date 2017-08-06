@@ -17,3 +17,16 @@ How to use
 * Use the Python script `indexer.py` to index documents. By default it will index all gif files in the `example_gifs` folder of this repository.
 * Use the flask app to search: `export FLASK_APP=search.py && flask run`. To search for `bla`, go to `localhost:5000/search?name=bla`
 
+API
+===
+
+`/search`
+--------
+
+Allows to search for a gif by name.
+
+Query parameter:
+* `name`: The name or a part of the name. The default is an empty string.
+The result will be a json object containing all the gif names which matched the query.
+
+Example `/search?name=scared`

@@ -14,7 +14,7 @@ es.indices.create(index="gifs", body=json_index, ignore=400)
 gifs_names = map(os.path.basename, glob.glob("example_gifs/*.gif"))
 
 for name in gifs_names:
-    es.index(index="gifs", doc_type='gif', body={'name': name}, id = name)
+    es.index(index="gifs", doc_type='gif', body={'timestamp': datetime.now(), 'name': name}, id = name)
 
 #res = es.index(index="gifs", doc_type='gif', body=doc, id = doc["name"])
 #print(res['created'])
