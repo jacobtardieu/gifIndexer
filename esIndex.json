@@ -24,7 +24,7 @@
     }
   },
   "mappings": {
-    "tweet": {
+    "gif": {
       "properties": {
         "text": {
           "type": "string",
