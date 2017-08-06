@@ -26,7 +26,7 @@
   "mappings": {
     "gif": {
       "properties": {
-        "text": {
+        "name": {
           "type": "string",
           "analyzer": "autocomplete"
         }

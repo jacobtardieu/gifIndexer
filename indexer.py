@@ -1,20 +1,19 @@
 from datetime import datetime
 from elasticsearch import Elasticsearch
+import json
 es = Elasticsearch()
 
+with open('esIndex.json') as json_index_file:
+    json_index = json.load(json_index_file)
+
+es.indices.create(index="gifs", body=json_index, ignore=400)
+
 doc = {
-    'text': 'sta_bloum',
+    'name': 'lol_monkey',
     'timestamp': datetime.now(),
 }
-res = es.index(index="test-index", doc_type='gif', id=1, body=doc)
+res = es.index(index="gifs", doc_type='gif', body=doc, id = doc["name"])
 print(res['created'])
 
-res = es.get(index="test-index", doc_type='gif', id=1)
-print(res['_source'])
+es.indices.refresh(index="gifs")
 
-es.indices.refresh(index="test-index")
-
-res = es.search(index="test-index", body={"query": {"match_all": {}}})
-print("Got %d Hits:" % res['hits']['total'])
-for hit in res['hits']['hits']:
-    print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
